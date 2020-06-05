@@ -3,11 +3,10 @@ import {useSelector, useDispatch} from 'react-redux';
 import MyListsHeader from '../../components/HeaderListcard';
 import ListCard from '../../components/ListCard';
 import Modal from '../../components/Modal';
-import ModalAddList from '../../components/ModalAddList';
 import ModalCloneList from '../../components/ModalCloneList';
 
 import {Container} from './styles';
-import {ShowAddList, ShowCloneList} from '../../Store/ListStore';
+import {ShowCloneList} from '../../Store/ListStore';
 
 const ListSelector = () => {
   const dispatch = useDispatch();
@@ -16,13 +15,6 @@ const ListSelector = () => {
   return (
     <Container>
       <MyListsHeader />
-      <Modal
-        visible={listStore.showAddList}
-        onClose={() => {
-          dispatch(ShowAddList(false));
-        }}>
-        <ModalAddList />
-      </Modal>
       <Modal
         visible={listStore.showCloneList}
         onClose={() => dispatch(ShowCloneList(false))}>

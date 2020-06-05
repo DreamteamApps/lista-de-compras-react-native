@@ -6,7 +6,6 @@ export const Types = {
   SELECT_LIST: 'LISTS/SELECT_LIST',
   SHOW_ADD_ITEM: 'LISTS/SHOW_ADD_ITEM',
   SHOW_CLONE_LIST: 'LISTS/SHOW_CLONE_LIST',
-  SHOW_ADD_LIST: 'LISTS/SHOW_ADD_LIST',
   ADD_LIST: 'LISTS/ADD_LIST',
   REMOVE_LIST: 'LISTS/REMOVE_LIST',
   ADD_ITEM: 'LISTS/ADD_ITEM',
@@ -16,7 +15,6 @@ export const Types = {
 const INITIAL_STATE = {
   allLists: [],
   showAddItem: false,
-  showAddList: false,
   showCloneList: false,
   selectedList: null,
   cloneList: null,
@@ -63,35 +61,6 @@ function _ShowAddItem(state, payload) {
   };
 }
 
-export function ShowAddList(value, toEdit, status) {
-  return {
-    type: Types.SHOW_ADD_LIST,
-    payload: {
-      show: value,
-      item: {
-        ...toEdit,
-        status,
-      },
-    },
-  };
-}
-
-function _ShowAddList(state, payload) {
-  let list;
-  if (payload.item?.id) {
-    list = payload.item;
-  } else {
-    list = {
-      id: uuid.create().toString(),
-      status: payload.item.status,
-    };
-  }
-  return {
-    ...state,
-    showAddList: payload.show,
-    selectedList: list,
-  };
-}
 export function ShowCloneList(show, cloneListId) {
   return {
     type: Types.SHOW_CLONE_LIST,
@@ -118,16 +87,11 @@ function _ShowCloneList(state, payload) {
   };
 }
 
-export function AddList(id, name, available) {
+export function AddList(list) {
+  console.ll;
   return {
     type: Types.ADD_LIST,
-    payload: {
-      id,
-      name,
-      available,
-      products: [],
-      status: null,
-    },
+    payload: list,
   };
 }
 function _AddList(state, payload) {
@@ -235,8 +199,6 @@ function reducer(state = INITIAL_STATE, action) {
       return _SelectList(state, payload);
     case Types.SHOW_ADD_ITEM:
       return _ShowAddItem(state, payload);
-    case Types.SHOW_ADD_LIST:
-      return _ShowAddList(state, payload);
     case Types.SHOW_CLONE_LIST:
       return _ShowCloneList(state, payload);
     case Types.ADD_LIST:

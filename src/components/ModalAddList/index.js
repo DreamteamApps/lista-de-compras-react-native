@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import uuid from 'uuid-js';
 
 import {
   Container,
@@ -15,38 +16,29 @@ import {
 } from './styles';
 import createList from '../../../assets/images/create-list.png';
 
-import {AddList as AddListAction, ShowAddList} from '../../Store/ListStore';
+import {AddList as AddListAction} from '../../Store/ListStore';
 
-const ModalAddList = () => {
+const ModalAddList = ({list, title, onClose}) => {
   const dispatch = useDispatch();
-  const listStore = useSelector((state) => state.listStore);
-  const [name, setName] = useState(listStore.selectedList?.name ?? '');
-  const existingAvailable = listStore.selectedList?.available;
-  const [available, setAvailable] = useState(
-    `${existingAvailable === 0 ? '' : existingAvailable ?? ''}`,
-  );
-  const canAdd = !!name;
-  let title = getTitle();
 
-  console.log('listStore.selectedList?.status', listStore.selectedList?.status);
-  function getTitle() {
-    switch (listStore.selectedList?.status) {
-      case 'NEW':
-        return 'Nova Lista';
-      case 'EDITING':
-        return 'Editar Lista';
-    }
-  }
+  list = list ?? {id: uuid.create().toString(), name: '', products: []};
+
+  const [name, setName] = useState(list.name ?? '');
+  const [available, setAvailable] = useState(
+    `${list.available === 0 ? '' : list.available ?? ''}`,
+  );
+
+  const canAdd = !!name;
 
   function onAddList() {
     dispatch(
-      AddListAction(
-        listStore.selectedList.id,
+      AddListAction({
+        ...list,
         name,
-        Number(available.replace(',', '.')),
-      ),
+        available: Number(available.replace(',', '.')),
+      }),
     );
-    dispatch(ShowAddList(false));
+    onClose && onClose();
   }
 
   return (

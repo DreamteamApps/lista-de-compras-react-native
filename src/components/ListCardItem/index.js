@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {SelectList, ShowAddList, ShowCloneList} from '../../Store/ListStore';
+import {SelectList} from '../../Store/ListStore';
+import uuid from 'uuid-js';
 import {CalcTotalizer} from '../Totalizer';
 import {useNavigation} from '@react-navigation/native';
 import {
@@ -19,6 +20,7 @@ import copyIcon from '../../../assets/images/copy.png';
 import deleteIcon from '../../../assets/images/delete.png';
 import Modal from './../Modal/index';
 import ModalDeleteList from './../ModalDeleteList';
+import ModalAddList from './../ModalAddList';
 
 const ListCard = ({list}) => {
   const dispatch = useDispatch();
@@ -26,17 +28,12 @@ const ListCard = ({list}) => {
   const total = CalcTotalizer(list.products);
 
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [showEditList, setShowEditList] = useState(false);
+  const [showCloneList, setShowCloneList] = useState(false);
 
   const navigateToList = () => {
     dispatch(SelectList(list.id));
     navigation.navigate('List');
-  };
-
-  const editList = () => {
-    dispatch(ShowAddList(true, list, 'EDITING'));
-  };
-  const cloneList = () => {
-    dispatch(ShowCloneList(true, list.id));
   };
 
   return (
@@ -49,12 +46,42 @@ const ListCard = ({list}) => {
           onClose={() => setShowDeleteConfirmation(false)}
         />
       </Modal>
+      <Modal
+        visible={showEditList}
+        onClose={() => {
+          setShowEditList(false);
+        }}>
+        <ModalAddList
+          list={list}
+          title="Editar lista"
+          onClose={() => {
+            setShowEditList(false);
+          }}
+        />
+      </Modal>
+      <Modal
+        visible={showCloneList}
+        onClose={() => {
+          setShowCloneList(false);
+        }}>
+        <ModalAddList
+          list={{
+            ...list,
+            id: uuid.create().toString(),
+            name: list.name + ' clone',
+          }}
+          title="Clonar lista"
+          onClose={() => {
+            setShowCloneList(false);
+          }}
+        />
+      </Modal>
       <TextContainer>
         <Text numberOfLines={1}>{list.name}</Text>
-        <TouchContainer onPress={editList}>
+        <TouchContainer onPress={() => setShowEditList(true)}>
           <ButtonIcon source={editIcon} resizeMode="contain" />
         </TouchContainer>
-        <TouchContainer onPress={cloneList}>
+        <TouchContainer onPress={() => setShowCloneList(true)}>
           <ButtonIcon source={copyIcon} resizeMode="contain" />
         </TouchContainer>
         <TouchContainer onPress={() => setShowDeleteConfirmation(true)}>
