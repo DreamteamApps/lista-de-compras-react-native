@@ -1,5 +1,5 @@
 import React from 'react';
-import PaperListItem from '../ShoppingListItem';
+import ShoppingListProduct from '../ShoppingListProduct';
 import {PaperFlatList} from './styles';
 
 import {useSelector} from 'react-redux';
@@ -14,15 +14,7 @@ const PaperList = () => {
     <PaperFlatList
       contentContainerStyle={flatListStyle}
       data={listStore.selectedList.products}
-      renderItem={({item}) => (
-        <PaperListItem
-          id={item.id}
-          name={item.name}
-          price={item.price}
-          quantity={item.quantity}
-          check={item.check}
-        />
-      )}
+      renderItem={({item}) => <ShoppingListProduct product={item} />}
       keyExtractor={(item) => item.id}>
       />
     </PaperFlatList>

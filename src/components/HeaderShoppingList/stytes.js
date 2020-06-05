@@ -10,11 +10,12 @@ export const Container = styled.View`
   flex-direction: row;
   justify-content: space-between;
   padding-right: 15px;
-  padding-left: 15px;
+  padding-left: 5px;
 `;
 
 export const TitleContainer = styled.View`
   flex: 1;
+
 `;
 export const Text = styled.Text`
   font-family: ${font.default};
@@ -30,14 +31,19 @@ export const TouchContainer = styled.TouchableOpacity`
   justify-content: center;
   height: 30px;
   width: 35px;
-  margin-left: 10px;
 `;
 export const TouchContainerWithBg = styled(TouchContainer)`
   background-color: lightgreen;
 `;
 
 export const ButtonIcon = styled.Image`
+  width: 45px;
+`;
+
+export const BackIcon = styled.Image`
   width: 40px;
+  margin-bottom: -10px;
+  margin-left: 5px;
 `;
 
 export const ButtonContainer = styled.View`

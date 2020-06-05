@@ -46,6 +46,7 @@ export const ValueItemContainer = styled.View`
 
 export const ButtonContainer = styled.View`
   justify-content: flex-end;
+  flex-direction: row;
   opacity: ${(props) => (props.enable ? 1 : 0.4)};
 `;
 
@@ -55,9 +56,20 @@ export const AddButtonContainer = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   height: 40px;
-  width: 100%;
+  flex: 1;
+  margin: 5px;
 `;
 
-export const AddButtonIcon = styled.Image`
-  width: 55px;
+export const DeleteButtonContainer = styled.TouchableOpacity`
+  background-color: ${colors.money};
+  border-radius: 15px;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  flex: 1;
+  margin: 5px;
+`;
+
+export const ButtonIcon = styled.Image`
+  width: 35px;
 `;
