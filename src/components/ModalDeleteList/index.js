@@ -1,10 +1,11 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {RemoveList} from '../../Store/ListStore';
+import {RemoveList} from '../../store/ListStore';
 import ModalConfirmation from './../ModalConfirmation';
 import {colors} from './../../theme';
+import {showModal} from '../../store/ModalStore';
 
-const ModalDeleteList = ({list, onClose}) => {
+const ModalDeleteList = ({list}) => {
   const dispatch = useDispatch();
   return (
     <ModalConfirmation
@@ -15,13 +16,13 @@ const ModalDeleteList = ({list, onClose}) => {
         text: 'Deletar',
         action: () => {
           dispatch(RemoveList(list.id));
-          onClose();
+          dispatch(showModal(false));
         },
       }}
       rightButton={{
         color: colors.paperLine,
         text: 'Cancelar',
-        action: onClose,
+        action: () => dispatch(showModal(false)),
       }}
     />
   );

@@ -1,4 +1,3 @@
-import uuid from 'uuid-js';
 import {AsyncStorage} from 'react-native';
 import {persistReducer} from 'redux-persist';
 
@@ -80,7 +79,6 @@ export function RemoveList(id) {
     },
   };
 }
-
 function _RemoveList(state, payload) {
   let lists = [...state.allLists];
   var existingItem = lists.filter((i) => i.id === payload.id)[0];
@@ -98,7 +96,6 @@ export function AddProduct(product) {
     payload: product,
   };
 }
-
 function _AddProduct(state, payload) {
   console.log('payload', payload);
   let selectedList = {...state.selectedList};

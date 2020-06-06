@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useDispatch} from 'react-redux';
-import {CheckItem} from '../../Store/ListStore';
-import Modal from './../Modal/index';
+import {CheckItem} from '../../store/ListStore';
+import {showModal} from '../../store/ModalStore';
 import ModalAddProduct from './../ModalAddProduct/index';
 import {
   Container,
@@ -15,30 +15,20 @@ import {
   Check,
   CheckBox,
 } from './stytes';
+
+const modalDelete = (product) => (
+  <ModalAddProduct product={product} title="Editar Produto" canDelete={true} />
+);
 const ShoppingListProduct = ({product}) => {
   const dispatch = useDispatch();
-  const [showAddProduct, setShowAddProduct] = useState(false);
   return (
     <Container>
-      <Modal
-        visible={showAddProduct}
-        onClose={() => {
-          setShowAddProduct(false);
-        }}>
-        <ModalAddProduct
-          product={product}
-          title="Editar Produto"
-          onClose={() => {
-            setShowAddProduct(false);
-          }}
-          canDelete={true}
-        />
-      </Modal>
       <CheckContainer onPress={() => dispatch(CheckItem(product.id))}>
         <CheckBox>[]</CheckBox>
         {product.check && <Check>✓</Check>}
       </CheckContainer>
-      <InfoContainer onPress={() => setShowAddProduct(true)}>
+      <InfoContainer
+        onPress={() => dispatch(showModal(true, modalDelete(product)))}>
         <TitleContainer>
           <Text numberOfLines={1} maxWidth={'55%'}>
             {product.name}

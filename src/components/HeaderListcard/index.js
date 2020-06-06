@@ -7,34 +7,26 @@ import {
   Text,
   ButtonContainer,
 } from './stytes';
-import createList from '../../../assets/images/create-list.png';
-import Modal from './../Modal/index';
 import ModalAddList from './../ModalAddList/index';
 
+import {showModal} from '../../store/ModalStore';
+import createList from '../../../assets/images/create-list.png';
+import {useDispatch} from 'react-redux';
+
+const modalAdd = <ModalAddList title="Nova lista" />;
+
 const HeaderListCard = () => {
-  const [showAddList, setShowAddList] = useState(false);
+  const dispath = useDispatch();
   return (
     <Container>
       <TitleContainer>
         <Text numberOfLines={1}>Minhas Listas</Text>
       </TitleContainer>
       <ButtonContainer>
-        <TouchContainer onPress={() => setShowAddList(true)}>
+        <TouchContainer onPress={() => dispath(showModal(true, modalAdd))}>
           <ButtonIcon source={createList} resizeMode="contain" />
         </TouchContainer>
       </ButtonContainer>
-      <Modal
-        visible={showAddList}
-        onClose={() => {
-          setShowAddList(false);
-        }}>
-        <ModalAddList
-          title="Nova lista"
-          onClose={() => {
-            setShowAddList(false);
-          }}
-        />
-      </Modal>
     </Container>
   );
 };

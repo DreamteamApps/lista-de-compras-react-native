@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
-import {AddProduct, RemoveProduct} from '../../Store/ListStore';
+import {AddProduct, RemoveProduct} from '../../store/ListStore';
 import {
   Container,
   ProductInputContainer,
@@ -15,6 +15,7 @@ import {
   ModalTitle,
   ModalTitleContainer,
 } from './styles';
+import {showModal} from '../../store/ModalStore';
 import cartIcon from '../../../assets/images/cart.png';
 import deleteIcon from '../../../assets/images/delete.png';
 import uuid from 'uuid-js';
@@ -43,12 +44,12 @@ const ModalAddProduct = ({product, title, onClose, canDelete}) => {
         quantity: Number(quantity.replace(',', '.')),
       }),
     );
-    onClose();
+    dispatch(showModal(false));
   }
 
   function onDeleteItem() {
     dispatch(RemoveProduct(product.id));
-    onClose();
+    dispatch(showModal(false));
   }
 
   return (

@@ -1,27 +1,36 @@
 import React from 'react';
 import {Modal as RNModal, KeyboardAvoidingView, StyleSheet} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {showModal} from '../../store/ModalStore';
 
 import {Container, ModalBox, CloseButtonBox, CloseButtonIcon} from './styles';
 
 const modalShadow = StyleSheet.create({
   shadowOffset: {width: 0, height: 2},
 });
-const Modal = ({visible = true, onClose, children}) => {
+const Modal = () => {
+  const dispatch = useDispatch();
+  var modalStore = useSelector((state) => state.modalStore);
+  console.log('modalstore', modalStore);
+
   return (
     <RNModal
       animationType="slide"
       transparent={true}
       hardwareAccelerated={true}
-      visible={visible}
+      visible={modalStore.show}
       onRequestClose={() => {
-        onClose && onClose();
+        dispatch(showModal(false));
       }}>
       <Container>
         <ModalBox style={{modalShadow}}>
-          <CloseButtonBox onPress={onClose}>
+          <CloseButtonBox
+            onPress={() => {
+              dispatch(showModal(false));
+            }}>
             <CloseButtonIcon>X</CloseButtonIcon>
           </CloseButtonBox>
-          {children}
+          {modalStore.children}
         </ModalBox>
       </Container>
     </RNModal>

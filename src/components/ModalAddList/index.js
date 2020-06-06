@@ -16,9 +16,10 @@ import {
 } from './styles';
 import createList from '../../../assets/images/create-list.png';
 
-import {AddList as AddListAction} from '../../Store/ListStore';
+import {AddList as AddListAction} from '../../store/ListStore';
+import {showModal} from '../../store/ModalStore';
 
-const ModalAddList = ({list, title, onClose}) => {
+const ModalAddList = ({list, title}) => {
   const dispatch = useDispatch();
 
   list = list ?? {id: uuid.create().toString(), name: '', products: []};
@@ -38,7 +39,7 @@ const ModalAddList = ({list, title, onClose}) => {
         available: Number(available.replace(',', '.')),
       }),
     );
-    onClose && onClose();
+    dispatch(showModal(false));
   }
 
   return (

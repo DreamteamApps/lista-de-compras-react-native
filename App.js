@@ -11,7 +11,8 @@ import {SafeAreaView, StatusBar, ActivityIndicator} from 'react-native';
 import {PersistGate} from 'redux-persist/lib/integration/react';
 import Navigation from './src/screens/navigation';
 import {Provider} from 'react-redux';
-import {store, persistor} from './src/Store';
+import {store, persistor} from './src/store';
+import Modal from './src/components/Modal/index';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
       <SafeAreaView style={{flex: 1}}>
         <Provider store={store}>
           <PersistGate loading={<ActivityIndicator />} persistor={persistor}>
+            <Modal />
             <Navigation />
           </PersistGate>
         </Provider>
