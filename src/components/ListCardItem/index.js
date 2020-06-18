@@ -50,23 +50,6 @@ const ListCard = ({list}) => {
 
   return (
     <Container onPress={navigateToList}>
-      <Modal
-        visible={showCloneList}
-        onClose={() => {
-          setShowCloneList(false);
-        }}>
-        <ModalAddList
-          list={{
-            ...list,
-            id: uuid.create().toString(),
-            name: list.name + ' clone',
-          }}
-          title="Clonar lista"
-          onClose={() => {
-            setShowCloneList(false);
-          }}
-        />
-      </Modal>
       <TextContainer>
         <Text numberOfLines={1}>{list.name}</Text>
         <TouchContainer

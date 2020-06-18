@@ -167,7 +167,7 @@ function _CheckItem(state, payload) {
   return {
     ...state,
     allLists,
-    selectedList: selectedList,
+    selectedList: {...selectedList},
   };
 }
 

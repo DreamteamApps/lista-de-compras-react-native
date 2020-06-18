@@ -16,19 +16,26 @@ import {
   CheckBox,
 } from './stytes';
 
-const modalDelete = (product) => (
+const modalEdit = (product) => (
   <ModalAddProduct product={product} title="Editar Produto" canDelete={true} />
 );
 const ShoppingListProduct = ({product}) => {
   const dispatch = useDispatch();
+  const onCheckPress = () => {
+    if (!product.price && !product.check) {
+      dispatch(showModal(true, modalEdit(product)));
+    }
+    dispatch(CheckItem(product.id));
+  };
+
   return (
     <Container>
-      <CheckContainer onPress={() => dispatch(CheckItem(product.id))}>
+      <CheckContainer onPress={onCheckPress}>
         <CheckBox>[]</CheckBox>
         {product.check && <Check>✓</Check>}
       </CheckContainer>
       <InfoContainer
-        onPress={() => dispatch(showModal(true, modalDelete(product)))}>
+        onPress={() => dispatch(showModal(true, modalEdit(product)))}>
         <TitleContainer>
           <Text numberOfLines={1} maxWidth={'55%'}>
             {product.name}

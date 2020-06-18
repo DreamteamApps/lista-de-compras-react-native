@@ -21,6 +21,7 @@ import {showModal} from '../../store/ModalStore';
 
 const ModalAddList = ({list, title}) => {
   const dispatch = useDispatch();
+  console.log(list);
 
   list = list ?? {id: uuid.create().toString(), name: '', products: []};
 
