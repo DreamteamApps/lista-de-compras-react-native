@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import {colors, font} from '../../theme';
+import {colors, font, hpx} from '../../theme';
 
 export const Container = styled.View`
   padding: 15px;
@@ -30,9 +30,10 @@ export const ProductInputContainer = styled.View`
 `;
 export const ProductInput = styled.TextInput`
   font-family: ${font.default};
-  font-size: ${font.large}px;
-  margin-bottom: -${font.large}px;
+  font-size: ${font.small}px;
+  margin-bottom: -${font.small}px;
   text-decoration: none;
+  height: ${hpx(60)}px;
 `;
 export const ValueContainer = styled.View`
   flex-direction: row;

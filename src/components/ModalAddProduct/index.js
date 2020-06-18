@@ -20,7 +20,7 @@ import cartIcon from '../../../assets/images/cart.png';
 import deleteIcon from '../../../assets/images/delete.png';
 import uuid from 'uuid-js';
 
-const ModalAddProduct = ({product, title, onClose, canDelete}) => {
+const ModalAddProduct = ({product, title, canDelete, priceFocus}) => {
   const dispatch = useDispatch();
 
   product = product ?? {
@@ -60,6 +60,7 @@ const ModalAddProduct = ({product, title, onClose, canDelete}) => {
       <Title>Produto</Title>
       <ProductInputContainer>
         <ProductInput
+          autoFocus={priceFocus ? false : true}
           placeholder="Nome do produto"
           value={name}
           onChangeText={(text) => setName(text)}
@@ -81,6 +82,7 @@ const ModalAddProduct = ({product, title, onClose, canDelete}) => {
           <Title>Preço unitário</Title>
           <ProductInputContainer>
             <ProductInput
+              autoFocus={priceFocus ? true : false}
               keyboardType={'number-pad'}
               placeholder="0.00"
               value={price}

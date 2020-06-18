@@ -52,6 +52,7 @@ const ModalAddList = ({list, title}) => {
         <Title>Nome</Title>
         <ProductInputContainer>
           <ProductInput
+            autoFocus={true}
             placeholder="Nome da lista"
             value={name}
             onChangeText={(text) => setName(text)}

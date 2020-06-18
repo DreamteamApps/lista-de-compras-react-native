@@ -19,11 +19,20 @@ import {
 const modalEdit = (product) => (
   <ModalAddProduct product={product} title="Editar Produto" canDelete={true} />
 );
+
+const modalUpdatePrice = (product) => (
+  <ModalAddProduct
+    product={product}
+    title="Savar Preço"
+    canDelete={false}
+    priceFocus={true}
+  />
+);
 const ShoppingListProduct = ({product}) => {
   const dispatch = useDispatch();
   const onCheckPress = () => {
     if (!product.price && !product.check) {
-      dispatch(showModal(true, modalEdit(product)));
+      dispatch(showModal(true, modalUpdatePrice(product)));
     }
     dispatch(CheckItem(product.id));
   };
