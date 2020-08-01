@@ -10,7 +10,9 @@ import {
 import {useSelector} from 'react-redux';
 
 export const CalcTotalizer = (products) => {
+  console.log(products);
   const total = products
+    .filter((i) => i.check)
     .map((i) => i.price * i.quantity)
     .reduce((sum, current) => sum + current, 0);
   return total;
